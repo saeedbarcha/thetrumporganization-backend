@@ -52,10 +52,6 @@ export class UpdateUserDto {
     @IsOptional()
     @IsUrl({}, { message: 'Website URL must be a valid URL.' })
     telegram_url?: string;
-
-    @IsOptional()
-    @IsInt({ message: 'Country ID must be an integer.' })
-    country_id?: number;
    
     @IsOptional()
     @IsInt({ message: 'Payout balance must be an integer.' })

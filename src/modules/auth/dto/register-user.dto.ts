@@ -59,10 +59,6 @@ export class RegisterDto {
     @IsInt({ message: 'Payout amount must be an integer.' })
     payout_amount?: number;
 
-    @IsOptional()
-    @IsInt({ message: 'Country ID must be an integer.' })
-    country_id?: number;
-
      @IsOptional()
     @IsString({ message: 'City must be a string.' })
     city: string;

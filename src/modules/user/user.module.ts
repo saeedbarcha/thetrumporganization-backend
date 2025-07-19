@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 import { AffiliateInFo } from './entities/affilieate-info.entity';
 import { ClientInfo } from './entities/client-info.entity';
 import { Attachment } from '../attachment/entities/attachment.entity';
-import { Country } from '../country/entities/country.entity';
 import { UserSeederService } from 'src/seeds/user.seeder.service';
 import { LocalStrategy } from '../auth/jwt-strategy/local.strategy';
 import { JwtStrategy } from '../auth/jwt-strategy/jwt.strategy';
@@ -15,7 +14,7 @@ import { UserService } from './user.service';
 import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, AffiliateInFo, ClientInfo, Attachment, Country,]),
+    TypeOrmModule.forFeature([User, AffiliateInFo, ClientInfo, Attachment,]),
     forwardRef(() => AuthModule),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({

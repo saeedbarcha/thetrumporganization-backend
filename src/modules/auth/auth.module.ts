@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt-strategy/jwt.strategy';
 import { AuthService } from './auth.service';
 import { Attachment } from '../attachment/entities/attachment.entity';
-import { Country } from '../country/entities/country.entity';
 import { UserSeederService } from 'src/seeds/user.seeder.service';
 import { User } from '../user/entities/user.entity';
 import { AffiliateInFo } from '../user/entities/affilieate-info.entity';
@@ -20,8 +19,7 @@ import { UserService } from '../user/user.service';
       User,
       AffiliateInFo,
       ClientInfo,
-      Attachment,
-      Country
+      Attachment
     ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({

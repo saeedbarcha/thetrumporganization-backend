@@ -8,7 +8,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { typeOrmConfig } from './configs/typeorm.config';
 import { UserSeederService } from './seeds/user.seeder.service';
-import { CountryModule } from './modules/country/country.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './modules/common/error-filters/http-exception.filter';
 import { AdminModule } from './modules/admin/admin.module';
@@ -24,7 +23,6 @@ import { UserModule } from './modules/user/user.module';
     TypeOrmModule.forRootAsync(typeOrmConfig),
     ScheduleModule.forRoot(),
     AttachmentModule,
-    CountryModule,
     AdminModule,
 
   ],

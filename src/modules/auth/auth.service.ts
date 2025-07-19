@@ -14,7 +14,6 @@ import { AffiliateInFo } from 'src/modules/user/entities/affilieate-info.entity'
 import { ClientInfo } from 'src/modules/user/entities/client-info.entity';
 import { RegisterDto } from './dto/register-user.dto';
 import { Attachment } from 'src/modules/attachment/entities/attachment.entity';
-import { Country } from 'src/modules/country/entities/country.entity';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserRoleEnum } from 'src/modules/user/enum/user.role.enum';
@@ -90,7 +89,6 @@ export class AuthService {
                 password,
                 role,
                 attachment_id,
-                country_id,
                 ...rest
             } = registerDto;
 
@@ -100,12 +98,6 @@ export class AuthService {
             user.email = email;
             user.password = hashedPassword;
             user.role = role;
-
-            if (country_id) {
-                const country = await queryRunner.manager.findOne(Country, { where: { id: country_id } });
-                throwIfError(!country, 'Invalid country ID.');
-                user.country = country;
-            }
 
             const savedUser = await queryRunner.manager.save(user);
 

@@ -9,7 +9,6 @@ import {
 import { Repository, DataSource, Not } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attachment } from 'src/modules/attachment/entities/attachment.entity';
-import { Country } from 'src/modules/country/entities/country.entity';
 import { checkIsAdmin } from 'src/utils/check-is-admin.util';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -47,14 +46,12 @@ export class UserService {
       const { id, email, password, old_password, new_password, role } = updateUserDto;
 
       const updaterUser = await queryRunner.manager.findOne(User, {
-        where: { id: user.id, role: user.role },
-        relations: ['country'],
+        where: { id: user.id, role: user.role }
       });
       throwIfError(!updaterUser, `User not found.`, NotFoundException);
 
       const existingUser = await queryRunner.manager.findOne(User, {
-        where: { id: id, role: role },
-        relations: ['country'],
+        where: { id: id, role: role }
       });
       throwIfError(!existingUser, `User not found.`, NotFoundException);
 
@@ -88,17 +85,6 @@ export class UserService {
           await bcrypt.hash(password, 10) || existingUser.password;
       }
 
-      if (updateUserDto.country_id) {
-        const country = await queryRunner.manager.findOne(Country, {
-          where: { id: updateUserDto.country_id, is_deleted: false },
-        });
-        throwIfError(
-          !country,
-          `Country with ID ${updateUserDto.country_id} not found.`,
-          NotFoundException,
-        );
-        existingUser.country = country;
-      }
 
       if (existingUser.role === UserRoleEnum.AFFILIATE) {
         const affiliateProfile = await this.affiliateInFoRepository.findOne({
@@ -180,8 +166,7 @@ export class UserService {
 
   async findUserById(id: number): Promise<any> {
     const user = await this.userRepository.findOne({
-      where: { id: id, },
-      relations: ['country'],
+      where: { id: id, }
     });
     throwIfError(!user, 'User not found.', NotFoundException);
 
@@ -191,13 +176,6 @@ export class UserService {
       email: user.email,
       role: user.role,
       created_at: user.created_at,
-      country: user.country
-        ? {
-          id: user.country.id,
-          name: user.country.name,
-          code: user.country.code,
-        }
-        : null,
     };
 
     if (user.role === UserRoleEnum.CLIENT) {

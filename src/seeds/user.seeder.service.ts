@@ -16,8 +16,7 @@ export class UserSeederService {
             phone: '0311111111',
             password: '123456',
             payout_date: '2024-02-02',
-            role: UserRoleEnum.ADMIN, 
-            country_id: 1
+            role: UserRoleEnum.ADMIN
         };
 
         await this.seedUser(adminUser);
